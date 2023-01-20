@@ -1,0 +1,29 @@
+WITH A AS (
+    SELECT DISTINCT
+        pop.price_quote_id,
+        pop.is_factual,
+        pop.analytical_ride_type_priced ride_type,
+        pop.region,
+        IF(pop.use_case_i LIKE 'airport%', 'airport', pop.use_case_i) use_case_i,
+        pop.optimal_base_markup_rate optimal_base_markup,
+        marginal_cost_clipped marginal_cost_clipped,
+        insurance_cost_cents_p1 insurance_cost_cents_p1,
+        insurance_cost_cents_p2 insurance_cost_cents_p2,
+        insurance_cost_cents_p3 insurance_cost_cents_p3,
+        pass_through_fees_cents pass_through_fees_cents,
+        (optimal_base_markup_rate * marginal_cost_clipped + insurance_cost_cents_p1 + insurance_cost_cents_p2 + insurance_cost_cents_p3 + pass_through_fees_cents) AS prebandit_cents,
+        pop.optimal_price_cents_at_zero_pt postbandit_cents
+    FROM hive.default.event_price_optimizer_priced pop
+        JOIN hive.default.event_price_optimizer_requested pr ON pr.price_quote_id = pop.price_quote_id
+        AND ((
+          ((pop.is_factual AND pop.model_version = 'bandit_grid_pricing_v3') OR (NOT pop.is_factual AND pop.model_version = 'bandit_grid_pricing_v3_airport_pudo'))
+          AND pop.region IN ('AUS','BWI','DFW','MIA','PHX','SAN','SAT','SEA','TPA')
+          AND pr.region IN ('AUS','BWI','DFW','MIA','PHX','SAN','SAT','SEA','TPA')
+        ) OR 
+          ((pop.is_factual AND pop.model_version = 'bandit_grid_pricing_v3_shared') OR (NOT pop.is_factual AND pop.model_version = 'bandit_grid_pricing_v3_shared_airport_pudo'))
+          AND pop.region IN ('BKN','CHI','PHI','SFO','SJC')
+          AND pr.region IN ('BKN','CHI','PHI','SFO','SJC')
+        )
+        AND ROUND(pr.distance_miles) <= 50
+        AND pop.ds >= '2023-01-15'
+        AND pr.ds >= '2023-01-15'

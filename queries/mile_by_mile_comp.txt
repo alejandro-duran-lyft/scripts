@@ -1,0 +1,28 @@
+SELECT 
+   pop.region,
+   pop.analytical_ride_type_priced ride_type,
+   IF(pop.is_factual, 'prod', 'shadow') is_factual,
+   IF(pop.is_origin_airport, 'pu', 'do') pudo_use_case,
+   ROUND(pr.distance_miles) mile,
+   AVG(pop.optimal_price_cents_at_zero_pt) avg_price,
+   COUNT(*) as session_count
+FROM
+    hive.default.event_price_optimizer_priced pop
+JOIN
+    hive.default.event_price_optimizer_requested pr
+ON
+    pr.price_quote_id = pop.price_quote_id
+AND (
+  (pop.model_version = 'bandit_grid_pricing_v3' AND pop.flyte_id = 'ex:priceoptimizeroffline:production:f1a1c812046e14e30ab2')
+OR (pop.model_version = 'bandit_grid_pricing_v3_airport_pudo' AND pop.flyte_id = 'ex:priceoptimizeroffline:production:x6rjpmi1gc')
+)
+AND (pop.is_origin_airport OR pop.is_dest_airport)
+AND ROUND(pr.distance_miles) <= 50
+AND pop.region = 'AUS'
+AND pop.ds >= '2023-01-12'
+AND pop.hr >= 19
+AND pr.region = 'AUS'
+AND pr.ds >= '2023-01-12'
+AND pr.hr >= 19
+GROUP BY pop.region,pop.analytical_ride_type_priced, pop.is_factual, pop.is_origin_airport,  ROUND(pr.distance_miles)
+ORDER BY ride_type,mile,pudo_use_case,is_factual ASC

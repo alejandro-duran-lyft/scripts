@@ -1,0 +1,75 @@
+WITH shadow AS (
+    SELECT 
+        price_quote_id,
+        analytical_ride_type_priced ride_type,
+        region,
+        IF(use_case_i LIKE 'airport%', 'airport', use_case_i) use_case_i,
+        use_case_j,
+        optimal_base_markup_rate,
+        optimal_base_markup_rate * marginal_cost_clipped + insurance_cost_cents_p1 + insurance_cost_cents_p2 + insurance_cost_cents_p3 + pass_through_fees_cents AS prebandit_cents
+    FROM hive.default.event_price_optimizer_priced 
+    WHERE ds >= '2023-01-15'
+        AND region IN ('AUS','BWI','DFW','MIA','PHX','SAN','SAT','SEA','TPA', 'BKN','CHI','PHI','SFO','SJC')
+        AND model_version IN ('bandit_grid_pricing_v3_airport_pudo', 'bandit_grid_pricing_v3_shared_airport_pudo')
+        AND NOT is_factual
+),
+prod AS (
+    SELECT 
+        price_quote_id,
+        analytical_ride_type_priced ride_type,
+        region,
+        IF(use_case_i LIKE 'airport%', 'airport', use_case_i) use_case_i,
+        use_case_j,
+        optimal_base_markup_rate,
+        optimal_base_markup_rate * marginal_cost_clipped + insurance_cost_cents_p1 + insurance_cost_cents_p2 + insurance_cost_cents_p3 + pass_through_fees_cents AS prebandit_cents
+    FROM hive.default.event_price_optimizer_priced 
+    WHERE ds >= '2023-01-15'
+        AND region IN ('AUS','BWI','DFW','MIA','PHX','SAN','SAT','SEA','TPA', 'BKN','CHI','PHI','SFO','SJC')
+        AND model_version IN ('bandit_grid_pricing_v3', 'bandit_grid_pricing_v3_shared')
+        AND is_factual
+),
+requests AS (
+    SELECT price_quote_id, distance_miles
+    FROM hive.default.event_price_optimizer_requested pr 
+    WHERE distance_miles <= 50
+    AND ds >= '2023-01-15'
+    AND region IN ('AUS','BWI','DFW','MIA','PHX','SAN','SAT','SEA','TPA', 'BKN','CHI','PHI','SFO','SJC')
+),
+T AS (
+    SELECT shadow.price_quote_id, MAX(region) region, MAX(ride_type) ride_type, MAX(use_case_i) use_case_i, AVG(optimal_base_markup_rate) markup, AVG(prebandit_cents) prebandit_cents
+    FROM shadow INNER JOIN requests ON shadow.price_quote_id = requests.price_quote_id
+    GROUP BY 1
+    HAVING COUNT(shadow.price_quote_id) = 1
+),
+C AS (
+    SELECT prod.price_quote_id, MAX(region) region, MAX(ride_type) ride_type, MAX(use_case_i) use_case_i, AVG(optimal_base_markup_rate) markup, AVG(prebandit_cents) prebandit_cents
+    FROM prod INNER JOIN requests ON prod.price_quote_id = requests.price_quote_id
+    GROUP BY 1
+    HAVING COUNT(prod.price_quote_id) = 1
+),
+combined AS (
+    SELECT T.region, T.ride_type, T.use_case_i, T.markup t_markup, T.prebandit_cents t_price, C.markup c_markup, C.prebandit_cents c_price
+    FROM T INNER JOIN C ON T.price_quote_id = C.price_quote_id
+)
+
+-- SELECT '1. shadow' t, count(*) record_count FROM shadow
+-- UNION
+-- SELECT '2. prod' t, count(*) record_count FROM prod
+-- UNION
+-- SELECT '3. requests' t, count(*) record_count FROM requests
+-- UNION
+-- SELECT '4. T' t, count(*) record_count FROM T
+-- UNION
+-- SELECT '5. C' t, count(*) record_count FROM C
+-- UNION
+-- SELECT '6. combined' t, count(*) record_count FROM combined
+
+
+
+-- use case i level
+SELECT region, ride_type, use_case_i, count(*) session_count,
+AVG(c_markup) c_markup, AVG(t_markup) t_markup, 100 * (AVG(t_markup) - AVG(c_markup)) / AVG(c_markup) markup_diff_percent,
+AVG(c_price) c_price,   AVG(t_price) t_price,   100 * (AVG(t_price) - AVG(c_price)) / AVG(c_price) price_diff_percent
+FROM combined
+GROUP BY region, ride_type, use_case_i
+ORDER BY region, ride_type, use_case_i

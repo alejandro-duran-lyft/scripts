@@ -1,0 +1,48 @@
+WITH A AS 
+(
+SELECT
+    pop.region region,
+    ROUND(pr.distance_miles) mile,
+    IF(pop.is_origin_airport, 'pickup', 'dropoff') airport_use_case,
+    IF(pop.is_factual, 'production', 'shadow') variant,
+    AVG(pop.optimal_price_cents_at_zero_pt) avg_price,
+    COUNT(*) AS num_sessions
+FROM
+    hive.default.event_price_optimizer_priced pop
+JOIN
+    hive.default.event_price_optimizer_requested pr
+ON
+    pr.price_quote_id = pop.price_quote_id
+WHERE 
+  pop.analytical_ride_type_priced = 'standard'
+AND (
+  (pop.model_version = 'bandit_pricing_n_modes_v2_niw_airport_pudo' AND pop.flyte_id = 'ex:priceoptimizeroffline:production:mr6650bkd2')
+OR (pop.model_version = 'bandit_pricing_n_modes_v2_niw' AND pop.flyte_id = 'ex:priceoptimizeroffline:production:fb91759c9d6444bc8a21')
+)
+AND (pop.is_origin_airport OR pop.is_dest_airport)
+AND ROUND(pr.distance_miles) <= 50
+AND pop.region = 'OCX'
+AND pr.region = 'OCX'
+AND pop.ds = '2022-10-05'
+AND pr.ds = '2022-10-05'
+AND pop.hr >= 1
+AND pr.hr >= 1
+GROUP BY 1, 2, 3, 4
+)
+SELECT T.region, T.mile, T.airport_use_case
+  , T.num_sessions as treatment_sessions, C.num_sessions as control_sessions
+  , T.avg_price as treatment_price, C.avg_price as control_price, round((T.avg_price - C.avg_price)/C.avg_price, 2) as rel_diff
+FROM 
+(
+SELECT *
+FROM A 
+WHERE variant = 'shadow'
+) T 
+JOIN 
+(
+SELECT *
+FROM A 
+WHERE variant = 'production'
+) C 
+ON T.region = C.region and T.mile = C.mile and T.airport_use_case = C.airport_use_case
+ORDER BY 1,3,2

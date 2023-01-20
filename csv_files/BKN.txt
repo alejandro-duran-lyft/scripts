@@ -1,0 +1,91 @@
+ride_type,use_case,dist_bucket,prod_markup,treat_markup,markup_%delta,markup_airport_equivalent (%delta),prod_pt,treat_pt,pt_airport_equivalent (%delta)
+courier_reserve,airport,d1,1.3417,DNE,DNE,DNE,1007.9549,DNE,DNE
+courier_reserve,airport,d2,1.2939,DNE,DNE,DNE,1308.7197,DNE,DNE
+courier_reserve,airport,d3,1.0281,DNE,DNE,DNE,1486.7359,DNE,DNE
+courier_reserve,airport,d4,1.0286,DNE,DNE,DNE,2762.1705,DNE,DNE
+courier_reserve,airport,d5,1.23,DNE,DNE,DNE,5063.7232,DNE,DNE
+courier_reserve,airport_drop_off,d1,DNE,1.2017,DNE,1.3417 (-10.4345%),DNE,2508.9281,1007.9549 (148.9127%)
+courier_reserve,airport_drop_off,d2,DNE,1.2645,DNE,1.2939 (-2.2722%),DNE,4142.1488,1308.7197 (216.5039%)
+courier_reserve,airport_drop_off,d3,DNE,1.0201,DNE,1.0281 (-0.7781%),DNE,4014.6019,1486.7359 (170.0279%)
+courier_reserve,airport_drop_off,d4,DNE,1.025,DNE,1.0286 (-0.35%),DNE,5381.8113,2762.1705 (94.8399%)
+courier_reserve,airport_drop_off,d5,DNE,1.2,DNE,1.23 (-2.439%),DNE,6734.3308,5063.7232 (32.9917%)
+courier_reserve,airport_pick_up,d1,DNE,1.2823,DNE,1.3417 (-4.4272%),DNE,2611.833,1007.9549 (159.122%)
+courier_reserve,airport_pick_up,d2,DNE,1.3499,DNE,1.2939 (4.328%),DNE,4303.6816,1308.7197 (228.8467%)
+courier_reserve,airport_pick_up,d3,DNE,1.1039,DNE,1.0281 (7.3728%),DNE,3949.2816,1486.7359 (165.6344%)
+courier_reserve,airport_pick_up,d4,DNE,1.1304,DNE,1.0286 (9.8969%),DNE,5397.2131,2762.1705 (95.3975%)
+courier_reserve,airport_pick_up,d5,DNE,1.3265,DNE,1.23 (7.8455%),DNE,6910.3728,5063.7232 (36.4682%)
+courier_reserve,commute,d1,1.3002,1.3002,0.0,DNE,981.5832,981.5832,DNE
+courier_reserve,commute,d2,1.2673,1.2673,0.0,DNE,1489.2178,1489.2178,DNE
+courier_reserve,commute,d3,0.9867,0.9867,0.0,DNE,1736.3184,1736.3184,DNE
+courier_reserve,commute,d4,0.994,0.994,0.0,DNE,2499.4215,2499.4215,DNE
+courier_reserve,commute,d5,1.0912,1.0912,0.0,DNE,4548.3482,4548.3482,DNE
+courier_reserve,other,d1,1.3238,1.3238,0.0,DNE,969.9599,969.9599,DNE
+courier_reserve,other,d2,1.3287,1.3287,0.0,DNE,1477.3296,1477.3296,DNE
+courier_reserve,other,d3,1.0397,1.0397,0.0,DNE,1708.5343,1708.5343,DNE
+courier_reserve,other,d4,1.0002,1.0002,0.0,DNE,2342.6417,2342.6417,DNE
+courier_reserve,other,d5,1.1088,1.1088,0.0,DNE,4297.8763,4297.8763,DNE
+courier_reserve,party time,d1,1.342,1.342,0.0,DNE,995.3561,995.3561,DNE
+courier_reserve,party time,d2,1.3429,1.3429,0.0,DNE,1495.4991,1495.4991,DNE
+courier_reserve,party time,d3,1.0725,1.0725,0.0,DNE,1746.8724,1746.8724,DNE
+courier_reserve,party time,d4,1.0026,1.0026,0.0,DNE,2320.9558,2320.9558,DNE
+courier_reserve,party time,d5,1.1026,1.1026,0.0,DNE,4152.6687,4152.6687,DNE
+standard,airport,d1,1.3883,DNE,DNE,DNE,1181.7758,DNE,DNE
+standard,airport,d2,1.3542,DNE,DNE,DNE,1522.1922,DNE,DNE
+standard,airport,d3,1.3136,DNE,DNE,DNE,2033.4336,DNE,DNE
+standard,airport,d4,1.2895,DNE,DNE,DNE,3763.0301,DNE,DNE
+standard,airport,d5,1.2714,DNE,DNE,DNE,6729.3338,DNE,DNE
+standard,airport_drop_off,d1,DNE,1.2762,DNE,1.3883 (-8.0746%),DNE,2922.839,1181.7758 (147.326%)
+standard,airport_drop_off,d2,DNE,1.2964,DNE,1.3542 (-4.2682%),DNE,4860.6873,1522.1922 (219.3215%)
+standard,airport_drop_off,d3,DNE,1.3009,DNE,1.3136 (-0.9668%),DNE,6140.2356,2033.4336 (201.9639%)
+standard,airport_drop_off,d4,DNE,1.2888,DNE,1.2895 (-0.0543%),DNE,7892.9936,3763.0301 (109.751%)
+standard,airport_drop_off,d5,DNE,1.3312,DNE,1.2714 (4.7035%),DNE,8914.9642,6729.3338 (32.4791%)
+standard,airport_pick_up,d1,DNE,1.2924,DNE,1.3883 (-6.9077%),DNE,3078.8665,1181.7758 (160.5288%)
+standard,airport_pick_up,d2,DNE,1.2935,DNE,1.3542 (-4.4824%),DNE,5050.3808,1522.1922 (231.7834%)
+standard,airport_pick_up,d3,DNE,1.2895,DNE,1.3136 (-1.8347%),DNE,5519.3008,2033.4336 (171.4276%)
+standard,airport_pick_up,d4,DNE,1.2727,DNE,1.2895 (-1.3028%),DNE,7375.251,3763.0301 (95.9923%)
+standard,airport_pick_up,d5,DNE,1.3078,DNE,1.2714 (2.863%),DNE,9834.6942,6729.3338 (46.1466%)
+standard,commute,d1,1.4039,1.4039,0.0,DNE,1138.0924,1138.0924,DNE
+standard,commute,d2,1.3348,1.3348,0.0,DNE,1731.8392,1731.8392,DNE
+standard,commute,d3,1.2186,1.2186,0.0,DNE,2378.9575,2378.9575,DNE
+standard,commute,d4,1.214,1.214,0.0,DNE,3439.0089,3439.0089,DNE
+standard,commute,d5,1.1732,1.1732,0.0,DNE,6114.3852,6114.3852,DNE
+standard,other,d1,1.4309,1.4309,0.0,DNE,1126.59,1126.59,DNE
+standard,other,d2,1.3978,1.3978,0.0,DNE,1721.6344,1721.6344,DNE
+standard,other,d3,1.2762,1.2762,0.0,DNE,2359.4687,2359.4687,DNE
+standard,other,d4,1.213,1.213,0.0,DNE,3260.402,3260.402,DNE
+standard,other,d5,1.1903,1.1903,0.0,DNE,6003.3269,6003.3269,DNE
+standard,party time,d1,1.4278,1.4278,0.0,DNE,1159.697,1159.697,DNE
+standard,party time,d2,1.3831,1.3831,0.0,DNE,1748.2928,1748.2928,DNE
+standard,party time,d3,1.2793,1.2793,0.0,DNE,2443.1831,2443.1831,DNE
+standard,party time,d4,1.1795,1.1795,0.0,DNE,3252.2703,3252.2703,DNE
+standard,party time,d5,1.1423,1.1423,0.0,DNE,5595.3104,5595.3104,DNE
+standard_saver,airport,d1,1.1331,DNE,DNE,DNE,1033.1461,DNE,DNE
+standard_saver,airport,d2,1.1177,DNE,DNE,DNE,1261.5884,DNE,DNE
+standard_saver,airport,d3,1.1722,DNE,DNE,DNE,1806.9823,DNE,DNE
+standard_saver,airport,d4,1.1986,DNE,DNE,DNE,3370.0584,DNE,DNE
+standard_saver,airport,d5,1.1875,DNE,DNE,DNE,6367.5384,DNE,DNE
+standard_saver,airport_drop_off,d1,DNE,1.0682,DNE,1.1331 (-5.7276%),DNE,2572.0983,1033.1461 (148.9578%)
+standard_saver,airport_drop_off,d2,DNE,1.0859,DNE,1.1177 (-2.8451%),DNE,4277.7141,1261.5884 (239.0737%)
+standard_saver,airport_drop_off,d3,DNE,1.1644,DNE,1.1722 (-0.6654%),DNE,5649.0167,1806.9823 (212.6216%)
+standard_saver,airport_drop_off,d4,DNE,1.2024,DNE,1.1986 (0.317%),DNE,7498.3498,3370.0584 (122.4991%)
+standard_saver,airport_drop_off,d5,DNE,1.2445,DNE,1.1875 (4.8%),DNE,8468.6511,6367.5384 (32.9973%)
+standard_saver,airport_pick_up,d1,DNE,1.1334,DNE,1.1331 (0.0265%),DNE,2435.4514,1033.1461 (135.7316%)
+standard_saver,airport_pick_up,d2,DNE,1.0868,DNE,1.1177 (-2.7646%),DNE,4063.5824,1261.5884 (222.1005%)
+standard_saver,airport_pick_up,d3,DNE,1.1448,DNE,1.1722 (-2.3375%),DNE,4928.8113,1806.9823 (172.7648%)
+standard_saver,airport_pick_up,d4,DNE,1.2146,DNE,1.1986 (1.3349%),DNE,6197.9055,3370.0584 (83.9109%)
+standard_saver,airport_pick_up,d5,DNE,1.212,DNE,1.1875 (2.0632%),DNE,9530.5942,6367.5384 (49.6747%)
+standard_saver,commute,d1,1.1981,1.1981,0.0,DNE,1001.4928,1001.4928,DNE
+standard_saver,commute,d2,1.1425,1.1425,0.0,DNE,1524.0403,1524.0403,DNE
+standard_saver,commute,d3,1.0994,1.0994,0.0,DNE,2188.6003,2188.6003,DNE
+standard_saver,commute,d4,1.1387,1.1387,0.0,DNE,3267.0912,3267.0912,DNE
+standard_saver,commute,d5,1.0978,1.0978,0.0,DNE,5807.7512,5807.7512,DNE
+standard_saver,other,d1,1.221,1.221,0.0,DNE,991.4189,991.4189,DNE
+standard_saver,other,d2,1.1968,1.1968,0.0,DNE,1515.0595,1515.0595,DNE
+standard_saver,other,d3,1.1506,1.1506,0.0,DNE,2170.6197,2170.6197,DNE
+standard_saver,other,d4,1.1366,1.1366,0.0,DNE,3096.9071,3096.9071,DNE
+standard_saver,other,d5,1.1134,1.1134,0.0,DNE,5702.5494,5702.5494,DNE
+standard_saver,party time,d1,1.2152,1.2152,0.0,DNE,1020.5126,1020.5126,DNE
+standard_saver,party time,d2,1.1827,1.1827,0.0,DNE,1538.5089,1538.5089,DNE
+standard_saver,party time,d3,1.152,1.152,0.0,DNE,2247.6388,2247.6388,DNE
+standard_saver,party time,d4,1.1046,1.1046,0.0,DNE,3089.7476,3089.7476,DNE
+standard_saver,party time,d5,1.0686,1.0686,0.0,DNE,5315.1021,5315.1021,DNE
